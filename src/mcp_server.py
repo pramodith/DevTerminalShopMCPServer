@@ -4,6 +4,7 @@ from tools.terminal_shop_tools import (
     get_coffee_products,
     run_order_workflow,
     create_address,
+    get_all_orders
 )
 
 
@@ -19,6 +20,8 @@ def main():
     server.add_tool(get_coffee_products)
     server.add_tool(create_address)
     server.add_tool(run_order_workflow)
+    server.add_tool(get_all_orders)
+
     server.run()
 
 

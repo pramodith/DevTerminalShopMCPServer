@@ -40,6 +40,8 @@ uv sync
 1. Start the MCP server:
 ```bash
 python src/mcp_server.py
+or
+uv --directory PATH_TO_SRC run mcp_server.py
 ```
 
 2. The server will guide you through:

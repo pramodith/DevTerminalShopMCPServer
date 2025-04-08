@@ -1,5 +1,6 @@
 from uuid import uuid4
 from terminal_shop.types import Address
+from typing import List
 from utils import (
     get_terminal_shop_client,
     get_terminal_shop_products,
@@ -89,3 +90,14 @@ def run_order_workflow(variant_id: str, quantity: int) -> str:
     product_variant = {variant_id: quantity}
     order_id = create_order(client, shipping_address_id, card_id, product_variant)
     return f"Order created with id: {order_id}"
+
+
+def get_all_orders() -> List:
+    """
+    Retrieves all orders for the user.
+    Returns:
+        list: List of all orders.
+    """
+    client = get_terminal_shop_client()
+    response = client.order.list()
+    return [o.model_dump() for o in response.data]

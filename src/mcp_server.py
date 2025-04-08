@@ -1,15 +1,23 @@
 from mcp.server.fastmcp import FastMCP
-from tools.terminal_shop_tools import get_coffee_products, run_order_workflow
+from mcp.server.fastmcp.server import Settings
+from tools.terminal_shop_tools import (
+    get_coffee_products,
+    run_order_workflow,
+    create_address,
+)
 
 
 def main():
     # Create an MCP server instance
     server = FastMCP(
-        name="TerminalShop", instructions="An MCP server for ordering coffee products"
+        name="TerminalShop",
+        instructions="An MCP server for ordering coffee products",
+        settings=Settings(log_level="DEBUG", debug=True),
     )
 
     # Register the tools
     server.add_tool(get_coffee_products)
+    server.add_tool(create_address)
     server.add_tool(run_order_workflow)
     server.run()
 

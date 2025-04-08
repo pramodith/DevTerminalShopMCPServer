@@ -1,5 +1,5 @@
 from terminal_shop import Terminal
-from terminal_shop.types import ProductListResponse, Profile, Address, product_variant
+from terminal_shop.types import ProductListResponse, Profile, Address
 from dotenv import load_dotenv
 from typing import Dict
 
@@ -8,7 +8,7 @@ load_dotenv()
 
 def get_terminal_shop_client(mode: str = "dev") -> Terminal:
     return Terminal(
-        # defaults to "production".
+        # defaults to "dev".
         environment=mode,
     )
 
@@ -149,55 +149,3 @@ def collect_credit_card_info(client: Terminal) -> str:
     """
     response = client.card.collect()
     return response.data
-
-
-if __name__ == "__main__":
-    client = get_terminal_shop_client()
-    products = get_terminal_shop_products(client)
-    print(products)
-    profile = get_customer_profile(client)
-    print(profile)
-    address = Address(
-        id="###",
-        city="####",
-        country="####",
-        name="####",
-        street1="####",
-        zip="####",
-    )
-    shipping_address = get_shipping_address(client)
-
-    if shipping_address:
-        shipping_address_id = shipping_address[0].id
-    else:
-        shipping_address_id = set_shipping_address(client, address)
-        print(shipping_address)
-
-    credit_card = get_credit_card(client)
-    if credit_card:
-        card_id = credit_card[0].id
-    else:
-        url = collect_credit_card_info(client)
-        print(f"Please go to {url.url} to enter your credit card details.")
-        card_id = get_credit_card(client).data[0].id
-
-    product_string = ""
-    index = 0
-    variant_price_map = {}
-    for product in products.data:
-        description = product.description
-        name = product.name
-        for variant in product.variants:
-            product_string += f"{index + 1}.{name}: {description}\nQuantity: {variant.name}\nPrice: ${variant.price / 100}\n\n"
-            variant_price_map[index + 1] = (variant.id, variant.price / 100)
-            index += 1
-
-    product_index = input(
-        f"Pick your choice by selecting the index i.e. 1, 2 etc."
-        f"\nWhich product would you like to order?\r\n{product_string}"
-    )
-
-    quantity = input(f"How many of {product_index} would you like to order?")
-    product_variant = {variant_price_map[int(product_index)][0]: int(quantity)}
-    order_id = create_order(client, shipping_address_id, card_id, product_variant)
-    print(f"Order created with id: {order_id}")

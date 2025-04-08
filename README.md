@@ -1,14 +1,12 @@
-# PizzaMCP - Terminal Coffee Shop
+# DevTerminalShopMCP - Terminal Coffee Shop
 
-A terminal-based coffee ordering system built with Python using MCP (Machine Control Protocol) server. This application allows users to browse coffee products, place orders, and manage shipping information through a simple terminal interface.
+[Terminal.Shop](https://www.terminal.shop/) let's you order coffee from the comfort of your terminal using SSH. They also have APIs for the same. This repo creates an MCP server so that these APIs can be used as Tools by an MCP client.
 
 ## Features
 
 - Browse available coffee products with descriptions and prices
 - Manage shipping addresses
-- Secure credit card processing
-- Order tracking with unique order IDs
-- Interactive terminal-based user interface
+- Place an order for your coffee beans
 
 ## Prerequisites
 

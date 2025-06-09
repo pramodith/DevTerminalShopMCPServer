@@ -18,8 +18,8 @@
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/PizzaMCP.git
-cd PizzaMCP
+git clone https://github.com/pramodith/DevTerminalShopMCP.git
+cd DevTerminalShopMCP
 ```
 
 2. Set up a virtual environment:
